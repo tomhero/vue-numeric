@@ -12,7 +12,13 @@
   <span
     v-else
     ref="readOnly"
-  >{{ amount }}</span>
+  ><template v-if="currencySymbolPosition === 'suffix'"> 
+      <div>{{ amount }}  <span :class="{'boldText': bold}"> {{ currency }} </span> </div>
+    </template>
+    <template v-else>
+       <div><span :class="{'boldText': bold}"> {{ currency }} </span> {{ amount }}</div>
+    </template>
+   </span>
 </template>
 
 <script>
@@ -28,6 +34,15 @@ export default {
     currency: {
       type: String,
       default: '',
+      required: false
+    },
+
+    /**
+     * Currency symbol text bold style
+     */
+    bold: {
+      type: Boolean,
+      default: false,
       required: false
     },
 
@@ -128,11 +143,14 @@ export default {
 
     /**
      * v-model value.
+     * @param - not accept boolean value
      */
     value: {
-      type: [Number, String],
       default: 0,
-      required: true
+      required: true,
+      validator: val => {
+        return typeof val !== 'boolean'
+      }
     },
 
     /**
@@ -211,7 +229,9 @@ export default {
      * @return {String} format
      */
     symbolPosition () {
-      if (!this.currency) return '%v'
+      if (!this.currency || this.readOnly) { 
+        return '%v'
+      }
       return this.currencySymbolPosition === 'suffix' ? '%v %s' : '%s %v'
     }
   },
@@ -360,9 +380,16 @@ export default {
      * @return {Number}
      */
     unformat (value) {
-      const toUnformat = typeof value === 'string' && value === '' ? this.emptyValue : value
+      const toUnformat = typeof value === 'string' && value === '' && value === null ? this.emptyValue : value
       return accounting.unformat(toUnformat, this.decimalSeparatorSymbol)
     }
   }
 }
 </script>
+
+<style>
+  .boldText {
+    font-weight: bold;
+  }
+</style>
+
