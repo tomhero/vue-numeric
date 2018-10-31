@@ -256,7 +256,10 @@ export default {
       if (oldValue === false && newValue === true) {
         this.$nextTick(() => {
           this.$refs.readOnly.className = this.readOnlyClass
+          this.amount = this.format(this.unformat(this.amount))
         })
+      } else if (oldValue === true && newValue === false) {
+        this.amount = this.format(this.unformat(this.amount))
       }
     },
 

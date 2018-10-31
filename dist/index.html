@@ -12,9 +12,13 @@
 <body>
     <div id="app">
         <h2> Vue numeric Test | my number is {{ myNum }} </h2>
+        <div>
+            <button v-on:click="switchReadOnly">toggle readonly</button>
+        </div>
+        <br>
         <vue-numeric v-model.number="myNum" :currency="currency" 
-        :bold="true" :precision="2"
-        :currency-symbol-position="position"/>
+        :bold="false" :precision="2"
+        :currency-symbol-position="position" :read-only="readonly"/>
     </div>
 
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -23,9 +27,15 @@
         new Vue({
             el: '#app',
             data: {
-                myNum: '123',
+                myNum: 99,
                 currency: 'THB',
-                position: 'suffix'
+                position: 'suffix',
+                readonly: true
+            },
+            methods: {
+                switchReadOnly () {
+                    this.readonly = !this.readonly;
+                }
             }
         })
     </script>
