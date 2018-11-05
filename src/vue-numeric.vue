@@ -13,10 +13,10 @@
     v-else
     ref="readOnly"
   ><template v-if="currencySymbolPosition === 'suffix'"> 
-    <div>{{ amount }}  <span :class="{'boldText': bold}"> {{ currency }} </span> </div>
+    <span>{{ amount }}  <span :class="{'boldText': bold}"> {{ currency }} </span> </span>
   </template>
     <template v-else>
-      <div><span :class="{'boldText': bold}"> {{ currency }} </span> {{ amount }}</div>
+      <span><span :class="{'boldText': bold}"> {{ currency }} </span> {{ amount }}</span>
     </template>
   </span>
 </template>
