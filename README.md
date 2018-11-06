@@ -161,6 +161,7 @@ by setting the property `output-type` to `String`.
 |thousand-separator|Custom thousand separator|false|String|-|
 |read-only|Hide input field and show the value as text|false|Boolean|false|
 |read-only-class|Class for read-only element|false|String|''|
+|🆕 bold|Bolder currency text style|false|Boolean|false|
 
 ## License
 
